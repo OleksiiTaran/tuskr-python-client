@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "tuskr-python-client"
+version = "0.1.0"
+description = "Python client for the Tuskr test management REST API"
+readme = "README.md"
+license = "MIT"
+authors = ["Oleksii Taran <oleksii.y.taran@gmail.com>"]
+keywords = ["tuskr", "test-management", "api", "rest"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+]
+packages = [{ include = "tuskr", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = ">=2.0"
+requests = ">=2.28.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0"
+pytest-cov = ">=4.0"
+
+[tool.poetry.urls]
+Homepage = "https://github.com/OleksiiTaran/tuskr-python-client"
+Documentation = "https://github.com/OleksiiTaran/tuskr-python-client#readme"
+Repository = "https://github.com/OleksiiTaran/tuskr-python-client"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = [
+    "integration: live Tuskr API tests (require TUSKR_TENANT_ID, TUSKR_TOKEN, TUSKR_TEAM_EMAIL)",
+]
