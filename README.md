@@ -144,6 +144,25 @@ poetry run pytest tests/integration -v -m integration
 
 **If you're on the free plan:** start a new [trial](https://tuskr.app) (e.g. with another email) to get API access temporarily, run the smoke or integration tests, then rely on unit + contract tests afterward.
 
+## Publishing (maintainers)
+
+**GitHub:** Create a repo at `https://github.com/OleksiiTaran/tuskr-python-client`, then:
+
+```bash
+git remote add origin https://github.com/OleksiiTaran/tuskr-python-client.git
+git push -u origin main
+```
+
+**PyPI:** [Create a PyPI account](https://pypi.org/account/register/) and [API token](https://pypi.org/manage/account/token/), then:
+
+```bash
+poetry config pypi-token.pypi YOUR_TOKEN   # or use env POETRY_HTTP_BASIC_PYPI_PASSWORD
+poetry build
+poetry publish
+```
+
+Tag releases for versions (e.g. `git tag v0.1.0 && git push --tags`).
+
 ## License
 
 MIT
