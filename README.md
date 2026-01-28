@@ -184,15 +184,16 @@ poetry build && poetry publish
 
 ### Branch protection (security rules)
 
-Protect `main` so all changes go through PRs and CI must pass:
+Protect `main` so CI must pass (and optionally use PRs):
 
 1. **Settings → Branches → Add branch protection rule**
 2. Branch name pattern: `main`
-3. Enable:
-   - **Require a pull request before merging** (optional: require 1 approval)
-   - **Require status checks to pass before merging**
-   - Add status checks: `Tests (3.12)` and `Tests (3.13)` (or just `Tests` if you use a single job). Run the [Tests workflow](https://github.com/OleksiiTaran/tuskr-python-client/actions) once so these appear.
-   - **Do not allow bypassing the above settings**
+3. Enable **Require status checks to pass before merging** and add `Tests (3.12)` and `Tests (3.13)`. Run the [Tests workflow](https://github.com/OleksiiTaran/tuskr-python-client/actions) once so these appear.
+
+**Solo maintainer options:**
+
+- **Require a pull request before merging** — you cannot push directly to `main`; you push to a branch, open a PR, then merge. **Do not** enable “Require approvals”: you cannot approve your own PR, so you’d be blocked. Use “Require PR” only if you want to always work via branches + PR + merge.
+- **Allow specified actors to bypass** — add yourself (e.g. your user or an admin team). You can then push directly to `main` when you want; PRs and status checks still apply to everyone else (e.g. collaborators, Dependabot). Handy if you’re solo and want to push quick fixes without opening a PR.
 
 [Dependabot](https://github.com/OleksiiTaran/tuskr-python-client/security/dependabot) (`.github/dependabot.yml`) is enabled for dependency and GitHub Actions updates.
 
