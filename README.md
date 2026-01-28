@@ -1,5 +1,9 @@
 # Tuskr Python Client
 
+[![Tests](https://github.com/OleksiiTaran/tuskr-python-client/actions/workflows/tests.yml/badge.svg)](https://github.com/OleksiiTaran/tuskr-python-client/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/tuskr-python-client.svg)](https://pypi.org/project/tuskr-python-client/)
+[![Supported Python](https://img.shields.io/pypi/pyversions/tuskr-python-client)](https://pypi.org/project/tuskr-python-client/)
+
 A Python client for the [Tuskr](https://tuskr.app) test management REST API.
 
 ## Installation
@@ -8,13 +12,21 @@ A Python client for the [Tuskr](https://tuskr.app) test management REST API.
 pip install tuskr-python-client
 ```
 
-Or with Poetry (Python 3.12+):
+On **macOS (Homebrew)** and other [PEP 668](https://peps.python.org/pep-0668/) environments, use a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install tuskr-python-client
+```
+
+Or with **Poetry** (Python 3.12+):
 
 ```bash
 poetry add tuskr-python-client
 ```
 
-From source:
+**From source:**
 
 ```bash
 git clone https://github.com/OleksiiTaran/tuskr-python-client.git
@@ -146,22 +158,43 @@ poetry run pytest tests/integration -v -m integration
 
 ## Publishing (maintainers)
 
-**GitHub:** Create a repo at `https://github.com/OleksiiTaran/tuskr-python-client`, then:
+### When to tag
+
+**Do not** tag every push. Tag **only when you release a new version** (e.g. `v0.1.1`, `v0.2.0`). Regular pushes (docs, CI, fixes) = no new tag.
+
+### Release workflow
+
+1. Bump `version` in `pyproject.toml`.
+2. Commit, push, then tag and push the tag:
 
 ```bash
-git remote add origin https://github.com/OleksiiTaran/tuskr-python-client.git
-git push -u origin main
+git add pyproject.toml && git commit -m "chore: release v0.1.1" && git push
+git tag v0.1.1 && git push origin v0.1.1
 ```
 
-**PyPI:** [Create a PyPI account](https://pypi.org/account/register/) and [API token](https://pypi.org/manage/account/token/), then:
+3. Build and publish to PyPI:
 
 ```bash
-poetry config pypi-token.pypi YOUR_TOKEN   # or use env POETRY_HTTP_BASIC_PYPI_PASSWORD
-poetry build
-poetry publish
+poetry build && poetry publish
 ```
 
-Tag releases for versions (e.g. `git tag v0.1.0 && git push --tags`).
+(Configure `poetry config pypi-token.pypi YOUR_TOKEN` once.)
+
+4. Optionally [create a GitHub Release](https://github.com/OleksiiTaran/tuskr-python-client/releases/new) from the tag with release notes.
+
+### Branch protection (security rules)
+
+Protect `main` so all changes go through PRs and CI must pass:
+
+1. **Settings → Branches → Add branch protection rule**
+2. Branch name pattern: `main`
+3. Enable:
+   - **Require a pull request before merging** (optional: require 1 approval)
+   - **Require status checks to pass before merging**
+   - Add status checks: `Tests (3.12)` and `Tests (3.13)` (or just `Tests` if you use a single job). Run the [Tests workflow](https://github.com/OleksiiTaran/tuskr-python-client/actions) once so these appear.
+   - **Do not allow bypassing the above settings**
+
+[Dependabot](https://github.com/OleksiiTaran/tuskr-python-client/security/dependabot) (`.github/dependabot.yml`) is enabled for dependency and GitHub Actions updates.
 
 ## License
 
