@@ -3,6 +3,7 @@
 [![Tests](https://github.com/OleksiiTaran/tuskr-python-client/actions/workflows/tests.yml/badge.svg)](https://github.com/OleksiiTaran/tuskr-python-client/actions/workflows/tests.yml)
 [![PyPI version](https://badge.fury.io/py/tuskr-python-client.svg)](https://pypi.org/project/tuskr-python-client/)
 [![Supported Python](https://img.shields.io/pypi/pyversions/tuskr-python-client)](https://pypi.org/project/tuskr-python-client/)
+[![Downloads](https://static.pepy.tech/badge/tuskr-python-client)](https://pepy.tech/projects/tuskr-python-client)
 
 A Python client for the [Tuskr](https://tuskr.app) test management REST API.
 
